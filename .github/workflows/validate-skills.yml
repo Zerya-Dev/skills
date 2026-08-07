@@ -1,0 +1,98 @@
+name: Validate skills
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate SKILL.md files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Validate skill structure and frontmatter
+        shell: ruby {0}
+        run: |
+          require "yaml"
+
+          files = Dir.glob("skills/**/SKILL.md").sort
+
+          if files.empty?
+            puts "No skills found yet; repository scaffold is valid."
+            exit 0
+          end
+
+          errors = []
+
+          files.each do |path|
+            parts = path.split(File::SEPARATOR)
+
+            unless parts.length == 4 && parts[0] == "skills" && parts[3] == "SKILL.md"
+              errors << "#{path}: expected skills/<technology>/<skill-name>/SKILL.md"
+              next
+            end
+
+            technology = parts[1]
+            directory = parts[2]
+
+            unless technology.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
+              errors << "#{path}: technology must use lowercase kebab-case"
+            end
+
+            unless directory.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
+              errors << "#{path}: skill directory must use lowercase kebab-case"
+            end
+
+            content = File.read(path, encoding: "UTF-8")
+            match = content.match(/\A---\s*\n(.*?)\n---\s*(?:\n|\z)/m)
+
+            unless match
+              errors << "#{path}: missing YAML frontmatter delimited by ---"
+              next
+            end
+
+            begin
+              metadata = YAML.safe_load(match[1], permitted_classes: [], aliases: false)
+            rescue Psych::SyntaxError => error
+              errors << "#{path}: invalid YAML (#{error.message.lines.first.strip})"
+              next
+            end
+
+            unless metadata.is_a?(Hash)
+              errors << "#{path}: frontmatter must be a YAML mapping"
+              next
+            end
+
+            name = metadata["name"]
+            description = metadata["description"]
+            unless name.is_a?(String) && name.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/)
+              errors << "#{path}: name must use lowercase kebab-case"
+            end
+
+            if name.is_a?(String) && name != directory
+              errors << "#{path}: name '#{name}' must match directory '#{directory}'"
+            end
+
+            unless description.is_a?(String) && !description.strip.empty?
+              errors << "#{path}: description must be a non-empty string"
+            end
+
+            if content[match.end(0)..].to_s.strip.empty?
+              errors << "#{path}: instruction body cannot be empty"
+            end
+          end
+
+          if errors.any?
+            warn errors.map { |error| "::error::#{error}" }.join("\n")
+            exit 1
+          end
+
+          puts "Validated #{files.length} skill#{files.length == 1 ? '' : 's'}."
