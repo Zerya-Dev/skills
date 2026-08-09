@@ -5,10 +5,10 @@
 </p>
 
 <p align="center">
-  <a href="https://skills.sh/Zerya-Dev/zerya-skills"><img alt="skills.sh installs" src="https://skills.sh/b/Zerya-Dev/zerya-skills" /></a>
-  <img alt="Validation" src="https://img.shields.io/github/actions/workflow/status/Zerya-Dev/zerya-skills/validate-skills.yml?branch=master&label=skills&style=for-the-badge" />
-  <img alt="License" src="https://img.shields.io/github/license/Zerya-Dev/zerya-skills?color=7c3aed&style=for-the-badge" />
-  <img alt="Last commit" src="https://img.shields.io/github/last-commit/Zerya-Dev/zerya-skills?color=7c3aed&style=for-the-badge" />
+  <a href="https://skills.sh/Zerya-Dev/skills"><img alt="skills.sh installs" src="https://skills.sh/b/Zerya-Dev/skills" /></a>
+  <img alt="Validation" src="https://img.shields.io/github/actions/workflow/status/Zerya-Dev/skills/validate-skills.yml?branch=master&label=skills&style=for-the-badge" />
+  <img alt="License" src="https://img.shields.io/github/license/Zerya-Dev/skills?color=7c3aed&style=for-the-badge" />
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/Zerya-Dev/skills?color=7c3aed&style=for-the-badge" />
 </p>
 
 **A curated collection of portable instructions that give AI coding agents focused, repeatable workflows.**
@@ -21,19 +21,19 @@ Each skill follows the open `SKILL.md` format and can be discovered and installe
 Browse the available skills without installing them:
 
 ```bash
-npx skills add Zerya-Dev/zerya-skills --list
+npx skills add Zerya-Dev/skills --list
 ```
 
 Install a selected skill:
 
 ```bash
-npx skills add Zerya-Dev/zerya-skills --skill <skill-name>
+npx skills add Zerya-Dev/skills --skill <skill-name>
 ```
 
 Install every skill from this repository:
 
 ```bash
-npx skills add Zerya-Dev/zerya-skills --all
+npx skills add Zerya-Dev/skills --all
 ```
 
 ## 🗂️ Repository structure
