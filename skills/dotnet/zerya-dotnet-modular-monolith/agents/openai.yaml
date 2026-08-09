@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zerya .NET Modular Monolith"
+  short_description: "Implement justified .NET module boundaries"
+  default_prompt: "Use $zerya-dotnet-modular-monolith to implement or review these justified module boundaries."
