@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zerya .NET Persistence Evolution"
+  short_description: "Evolve EF Core persistence safely"
+  default_prompt: "Use $zerya-dotnet-persistence-evolution to evolve this EF Core persistence design safely."
