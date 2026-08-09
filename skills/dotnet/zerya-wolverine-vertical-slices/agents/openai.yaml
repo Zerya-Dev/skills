@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zerya Wolverine Vertical Slices"
+  short_description: "Build reliable Wolverine vertical slices"
+  default_prompt: "Use $zerya-wolverine-vertical-slices to implement or review these Wolverine vertical slices."

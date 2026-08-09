@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zerya .NET DDD Architecture"
+  short_description: "Discover and improve .NET domain models"
+  default_prompt: "Use $zerya-dotnet-ddd-architecture to discover or review this .NET domain model and its boundaries."
